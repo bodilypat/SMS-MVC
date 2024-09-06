@@ -6,7 +6,7 @@
     if(isset($_POST['submit'])) {
         $userContact = $_POST['contactno'];
         $userEmail = $_POST['email'];
-        $qAdmin = mysqli_query($dbCon,"SELECT ID FROM tbladmin WHERE email='$userEmail' AND mobileno ='$userContact' ");
+        $qAdmin = mysqli_query($dbcon,"SELECT ID FROM tbladmin WHERE email='$userEmail' AND mobileno ='$userContact' ");
         $result = mysqli_fetch_array($qAdmin);
 
         if($result > 0 ){
