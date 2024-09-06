@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include('../include/dbconnection.php');
+include('../configure/dbConnect.php');
 
 if(isset($_POST['login']))
   {
