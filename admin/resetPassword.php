@@ -20,8 +20,8 @@
     <head>
         <title>Reset Password | Gallery Management System</title>
         <!-- custom style -->
-        <link rel="stylesheet" href="assign/css/style.css" >
-        <link rel="stylesheet" href="assign/css/style-reponsive.css" >
+        <link rel="stylesheet" href="../assign/css/style.css" >
+        <link rel="stylesheet" href="../assign/css/style-reponsive.css" >
         <script type="text/javascript">
             function checkPass(){
                 if(document.changpwd.newPassword.value != document.changpwd.confirmPassword.value){
