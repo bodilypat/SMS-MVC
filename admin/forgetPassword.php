@@ -1,7 +1,7 @@
 <?php
     session_start();
     error_reportion(0);
-    include('../define/dbConnect.php');
+    include('../configure/dbConnect.php');
 
     if(isset($_POST['submit'])) {
         $userContact = $_POST['contactno'];
