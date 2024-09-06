@@ -24,8 +24,8 @@ if(isset($_POST['login']))
     <head>
         <title>Login| Gallery Management </title>
         <!-- Custom styles -->
-        <link href="css/style.css" rel="stylesheet">
-        <link href="css/style-responsive.css" rel="stylesheet" />
+        <link href="../assign/css/style.css" rel="stylesheet">
+        <link href="../assign/css/style-responsive.css" rel="stylesheet" />
     </head>
 <body class="login-img3-body">
     <div class="container">
