@@ -26,8 +26,8 @@
     <head>
         <title>About us | Gallery Management System</title>
         <!-- custom style -->
-        <link rel="stylesheet" href="assign/css/style.css">
-        <link rel="stylesheet" href="assign/css/style-responsive.css">
+        <link rel="stylesheet" href="../assign/css/style.css">
+        <link rel="stylesheet" href="../assign/css/style-responsive.css">
     </head>
 <body>
     <section id="container">
