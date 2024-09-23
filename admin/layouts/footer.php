@@ -4,7 +4,7 @@
             <span class="text-bold text-uppercase">Art Gallery Management System</span>
         </div>
         <div class="pull-right">
-            <span class="go-top"><i class="ti-angle-up"></i></span>
+            <span class="go-top"><i class="ti-angle-an"><i></span>
         </div>
     </div>
 </footer>
