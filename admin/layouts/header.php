@@ -2,27 +2,23 @@
 <header>
     <!-- NAVBAR HEADER -->
     <div class="navbar-header">
-        <a href="#" class="sidebar-mobile-togger pull-left hidden-md hidden-lg"
-                    class="btn btn-navbar sidebar-toggle"
-                    data-toggle-class="app-side-off"
-                    data-toggle-click-outside="#sidebar">
+        <a href="#" class="sidebar-mobile-toggler pull-left hidden-md hidden-lg"
+            class="btn btn-navbar sidebar-toggle"
+            data-toggle-class="app-side-off"
+            data-toggle-click-outside="#sidebar" >
             <i class="ti-align-justify"></i>
         </a>
-        <a>
-            <h2 style="padding-top:20%; color:#000 ">Art Gallery</h2>
+        <a><h2 style="padding-top:20%; color:#000">Art Gallery</a>
+        <a href="#" class="sidebar-toggler pull-right visibling-lg" data-toggle-class="app-sidebar-close" data-toggle-target="#app">
+            <i class="ti-align ti-align-justify"></i>
         </a>
-        <a href="#" class="sidebar-toggler pull-right visible-lg" data-toggle-class="app-sidebar-close" data-toggle-target="#app">
-            <i class="ti-align-justify"></i>
-        </a>
-        <a href=".navbar-collapse" id="menu-toggle" class="pull-right menu-toggler visible-xs-block"  data-toggle="collapse" >
-            <span class="sr-only">Toggle Navigation"</span>
+        <a href=".navbar-collapse" id="menu-toggle" class="pull-right menu-toggler visible-xs-blook" data-toggle="collapse">
+            <span class="sr-only">Toggle Navigation</span>
             <i class="ti-view-grid"></i>
         </a>
     </div>
-
     <!-- NAVBAR COLLAPSE -->
     <div class="navbar-collapse collapse">
-        
         <ul class="nav navbar-right">
             <li style="padding-top:2%"><h2>Art Gallery Management System</h2></li>
             <li class="dropdown current-user">
@@ -36,8 +32,7 @@
                 </ul>
             </li>
         </ul>
-
-        <div class="close-handle visible-xs-block menu-toggle" data-toggle="collapse" href=".navbar-collapse">
+        <div class="close-handle visible-xs-block menu-toggle" data-toggle="collapse" href=".navbar-collape">
             <div class="arrow-left"></div>
             <div class="arrow-right"></div>
         </div>
