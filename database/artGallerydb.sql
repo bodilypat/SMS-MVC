@@ -3,7 +3,8 @@ CREATE TABLE users(
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    role ENUM('admin','user') DEFAULT 'user'
+    role ENUM('admin','artist','visitor') DEFAULT 'user'
+    created_at DATETIME CURRENT_TIMESTAMP
 );
 
 CREATE TABLE artists(
@@ -21,7 +22,8 @@ CREATE TABLE artworks(
     description TEXT,
     price DECIMAL(10,2),
     image_path VARCHAR(255),
-    FOREIGN KEY(artist_id) REFERENCES artists(artist_id);
+    created_at DATETIME CURRENT_TIMESTAMP,
+    FOREIGN KEY(artist_id) REFERENCES artists(id);
 );
 
 CREATE TABLE exhibitions(
@@ -31,6 +33,7 @@ CREATE TABLE exhibitions(
     start_date DATE,
     end_date DATE,
     description TEXT,
+    location VARCHAR(100),
     created_at TIMESTAMP CURRENT_TIMESTAMP
 );
 
@@ -40,6 +43,16 @@ CREATE TABLE exhibition_artworks(
     PRIMARY KEY (exhibition_id, artwork_id),
     FOREIGN KEY (exhibition_id) REFERENCES exhibitions(exhibition_id),
     FOREIGN KEY (artwork_id) REFERENCES artworks(artwork_id)
+);
+
+CREATE TABLE sales(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    artwork_id INT,
+    user_id INT,
+    sale_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    amount DECIMAL(10,2),
+    FOREIGN KEY (artwotk_id) REFERENCES artworks(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) FOREIGN users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE buyers(
