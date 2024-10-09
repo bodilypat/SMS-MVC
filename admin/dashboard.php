@@ -2,7 +2,7 @@
 
 session_start();
 error_report(0);
-include('../config/dbConnect.php');
+include('../includes/dbConnect.php');
     if(strlen($_SESSION['id']) == 0)
     {
         header('location:logout.php');
@@ -20,9 +20,9 @@ include('../config/dbConnect.php');
     </head>
 <body>
     <div id="app">
-        <?php include('layouts/sidebar.php');?>
+        <?php include('outlines/sidebar.php');?>
         <div class="app-content">
-            <?php include('layouts/header.php');?>
+            <?php include('outlines/header.php');?>
             <div class="main-content">
                 <div id="container" class="wrapper-content container" >
                     <!-- PAGE TITLE -->
@@ -49,9 +49,9 @@ include('../config/dbConnect.php');
                                          </span>
                                          <h2 class="StepTitle">Mainage Doctors</h2>
                                          <p class="links cl-effect-1">
-                                            <a href="Manage-Artists.php">
+                                            <a href="Manage_artists.php">
                                                 <?php
-                                                    $qAts = mysqli_query($handle,"SELECT * FROM artists");
+                                                    $qAts = getArtist();
                                                     $numRows = mysqli_num_rows($qAts)
                                                     {
                                                 ?>
@@ -59,6 +59,29 @@ include('../config/dbConnect.php');
                                                     }?>
                                             </a>
                                          </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Artworks panel -->
+                            <div class="col-sm-4">
+                                <div class="panel panel-blue no-radius text-center">
+                                    <div class="panel-body">
+                                        <span class="fa fa-stack fa-2x">
+                                            <i class="fa fa-square-2x text-primary"></i>
+                                            <i class="fa fa-smaile-o fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                        <h2 class="StepTitle">Manage Artworks</h2>
+                                        <p class="links cl-effect-1">
+                                            <a href="manage_artworks.php">
+                                                <?php   
+                                                    $qAtw = getArtworks();
+                                                    $numRows = mysqli_num_rows($qAtw)
+                                                    {
+                                                ?>
+                                                    Total Buyers = <?php echo htmlentities($numRows);
+                                                    } ?>
+                                            </a>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -72,14 +95,37 @@ include('../config/dbConnect.php');
                                         </span>
                                         <h2 clas="StepTitle">Manage Exhibitions</h2>
                                         <p class="links cl-effect-1">
-                                            <a href="manage-artwork-exhibition.php">
+                                            <a href="manage_exhibitions.php">
                                                 <?php
-                                                    $qExh = mysqli_query($handle,"SELECT * FROM exhibitions");
+                                                    $qExh = getExhibitions();
                                                     $numRows = mysql_num_rows($qExh)
                                                     {
                                                 ?>
                                                     Total Exhibitions = <?php echo htmlentities($numRow)
                                                     } ?>
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Exhibition Artworks -->
+                            <div class="col-sm-4">
+                                <div class="panel panel-blue no-radius text-center">
+                                    <div class="panel-body">
+                                        <span class="fa fa-stack fa-2x">
+                                            <i class="fa fa-square fa-stack-2x text-primary"></i>
+                                            <i class="fa fa-smail-o fa-stack-1 fa-inverse"><i>
+                                        </span>
+                                        <h2 class="StepTitle">Manage Exhibition-Artworks</h2>
+                                        <p class="links cl-effect-1">
+                                            <a href="manage_exhibition_artworks.php"></a>
+                                                <?php
+                                                    $qEatw = getEatw();
+                                                    $numRows = mysqli_num_rows($qEatw)
+                                                    {
+                                                ?>
+                                                    Total Exhibition Artworks = <?php echo htmlentities($numRows);
+                                                } ?>
                                             </a>
                                         </p>
                                     </div>
@@ -95,9 +141,9 @@ include('../config/dbConnect.php');
                                         </span>
                                         <h2 class="StepTitle">Manage Gallery Visitor</h2>
                                         <p class="links cl-effect-1">
-                                            <a href="manage-artworks.php">
+                                            <a href="manage_gallery_visitors.php">
                                                 <?php
-                                                    $qGvis = mysqli_query($handle,"SELECT * FROM gallery_visitiors");
+                                                    $qGvis = getGalleryVisitors();
                                                     $numRows = mysqli_num_rows($qGvis)
                                                     {
                                                 ?>
@@ -108,29 +154,7 @@ include('../config/dbConnect.php');
                                     </div>
                                 </div>
                             </div>
-                            <!-- Artworks panel -->
-                            <div class="col-sm-4">
-                                <div class="panel panel-blue no-radius text-center">
-                                    <div class="panel-body">
-                                        <span class="fa fa-stack fa-2x">
-                                            <i class="fa fa-square-2x text-primary"></i>
-                                            <i class="fa fa-smaile-o fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                        <h2 class="StepTitle">Manage Artworks</h2>
-                                        <p class="links cl-effect-1">
-                                            <a href="manage-buyers.php">
-                                                <?php   
-                                                    $qAtw = mysqli_query($handle,"SELECT * FROM artworks");
-                                                    $numRows = mysqli_num_rows($qAtw)
-                                                    {
-                                                ?>
-                                                    Total Buyers = <?php echo htmlentities($numRows);
-                                                    } ?>
-                                            </a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <!-- sales panel -->
                             <div class="col-sm-4">
                                 <div class="panel panel-blue no-ordius text-center">
@@ -140,9 +164,9 @@ include('../config/dbConnect.php');
                                             <i class="fa fa-smail-o fa-stack-1x fa-inverse"></i>
                                         </span>
                                         <p class="links cl-effect-1">
-                                            <a href="manage-artwors.php">
+                                            <a href="manage_sales.php">
                                                 <?php
-                                                    $qSale = mysqli_query($handle,"SELECT * FROM sales");
+                                                    $qSale = getSales();
                                                     $numRows = mysqli_num_rows($qSale){
                                                 ?>
                                                     Total Artworks = <?php echo htmlentities($numRows);
@@ -163,9 +187,9 @@ include('../config/dbConnect.php');
                                         </span>
                                         <h2 class="StepTitle">Manage Buyers</h2>
                                         <p class="links cl-stack-1">
-                                            <a href="manage-buyers.php">
+                                            <a href="manage_buyers.php">
                                                 <?php 
-                                                    $qBuy = mysqli_query($handle,"SELECT * FROM buyers");
+                                                    $qBuy = getBuyers();
                                                     $numRow = mysqli_num_row($qBuy)
                                                     {
                                                 ?>
@@ -176,34 +200,14 @@ include('../config/dbConnect.php');
                                     </div>
                                 </div>
                             </div>
-                            <!-- Exhibition Artworks -->
-                            <div class="col-sm-4">
-                                <div class="panel panel-blue no-radius text-center">
-                                    <div class="panel-body">
-                                        <span class="fa fa-stack fa-2x">
-                                            <i class="fa fa-square fa-stack-2x text-primary"></i>
-                                            <i class="fa fa-smail-o fa-stack-1 fa-inverse"><i>
-                                        </span>
-                                        <h2 class="StepTitle">Manage Exhibition-Artworks</h2>
-                                        <p class="links cl-effect-1">
-                                            <?php
-                                                $qEatw = mysqli_query($handle,"SELECT * FORM exhibition_artworks");
-                                                $numRows = mysqli_num_rows($qEatw)
-                                                {
-                                            ?>
-                                                Total Exhibition Artworks = <?php echo htmlentities($numRows);
-                                                } ?>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <?php include('layouts/footer.php');?>
-        <?php include('layouts/setting.php');?>
+        <?php include('../includes/footer.php');?>
+        <?php include('../includes/setting.php');?>
     </div>
     <script src="../assets/js/main.js"></script>
     <script src="../assets/js/form-elements.js"></script>
