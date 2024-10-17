@@ -12,12 +12,52 @@
         $artist_id = $_POST['artist_id'];
         $description = $_POST['description'];
         $price = $_POST['price'];
-        $image_path = 'images/' . basename($_FILES['image']['name']);
+
+        /* Handle file upload */
+        $target_dir = "images/";
+        $image_path = '$target_dir/' . basename($_FILES['image']['name']);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($image_path, PATHINFO_EXTENSION));
+
+        /* check image file is a valid image */
+        $check = getimagesize($_FILES['image']['tmp_name']);
+
+        if($check === false) {
+            $_SESSION['message'] = "File is not image";
+            $uploadOk = 0;
+        }
+
+        /* Check if file already exists */
+        if(file_exists($target_file)){
+            $_SESSION['message'] = "Sorry, already exists.";
+            $uplaodOk = 0;
+        }
+
+        /* Check file size(limit to 5MB) */
+        if($_FILES['image']['size'] > 500000 ){
+            $_SESSION['message'] = "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+
+        /* Allow certain file formats */
+        if(!in_array($imageFileType, ['jpg','png','jpeg','gif'])) {
+            $_SESSION['message']  = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+        }
+
+        /* Check if $uploadOk is set to 0 by an error */
+        if($uploadOk === 0){
+            header("Location: add_artworks.php");
+        } else {
+            //IF everything is ok, try to upload the file.
+
+        }
 
         /* move upload file  */
         if(move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)){
 
-            $artworkId = addArtwork($title, $arttis,$description, $price, $image_path);
+            // Insert artwork into the database
+            $artworkId = addArtwork($title, $artist,$description, $price, $image_path);
             echo "Artwork added successfully with ID: $artworkId";
             header('Location:manage_artworks.php');
 
