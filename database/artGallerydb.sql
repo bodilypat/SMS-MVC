@@ -41,6 +41,7 @@ CREATE TABLE exhibition_artworks(
     exhibition_id INT,
     artwork_id INT,
     PRIMARY KEY (exhibition_id, artwork_id),
+    
     FOREIGN KEY (exhibition_id) REFERENCES exhibitions(exhibition_id),
     FOREIGN KEY (artwork_id) REFERENCES artworks(artwork_id)
 );
@@ -51,16 +52,19 @@ CREATE TABLE sales(
     user_id INT,
     sale_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     amount DECIMAL(10,2),
+
     FOREIGN KEY (artwotk_id) REFERENCES artworks(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) FOREIGN users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE buyers(
+CREATE TABLE visitors(
     id AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     phone VARCHAR(15),
-    address TEXT, 
+    address TEXT,
+    feedback TEXT,
+    visit_date DATETIME DEFAULT CURRENT_TIMESTAMP
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
