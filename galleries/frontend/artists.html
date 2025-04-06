@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artists </title>
+    <link rel="stylesheet" href="css/styles.css" >
+</head>
+<body>
+
+<h1>Artists CRUD</h1>
+
+<!-- Create Artist Form -->
+<div class="artist-form">
+    <h2>Add New Artist</h2>
+    <form id="createArtistForm">
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" required><br>
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" required><br>
+        <label for="birth_date">Birth Date:</label>
+        <input type="date" id="birth_date"><br>
+        <label for="death_date">Death Date:</label>
+        <input type="date" id="death_date"><br>
+        <label for="biography">Biography:</label>
+        <textarea id="biography"></textarea><br>
+        <button type="submit">Create Artist</button>
+    </form>
+</div>
+
+<!-- Display Artists -->
+<h2>Artists List</h2>
+<table id="artistsTable" border="1">
+    <thead>
+        <tr>
+            <th>Artist ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Artist rows will be inserted here dynamically -->
+    </tbody>
+</table>
+
+<script>
+// Fetch all artists and display them in the table
+function fetchArtists() {
+    fetch('http://localhost:3000/artists')
+        .then(response => response.json())
+        .then(data => {
+            const artistsTable = document.querySelector('#artistsTable tbody');
+            artistsTable.innerHTML = ''; // Clear previous rows
+            data.forEach(artist => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${artist.artist_id}</td>
+                    <td>${artist.first_name}</td>
+                    <td>${artist.last_name}</td>
+                    <td>
+                        <button onclick="editArtist(${artist.artist_id})">Edit</button>
+                        <button onclick="deleteArtist(${artist.artist_id})">Delete</button>
+                    </td>
+                `;
+                artistsTable.appendChild(row);
+            });
+        });
+}
+
+// Create new artist
+document.getElementById('createArtistForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const artist = {
+        first_name: document.getElementById('first_name').value,
+        last_name: document.getElementById('last_name').value,
+        birth_date: document.getElementById('birth_date').value,
+        death_date: document.getElementById('death_date').value,
+        biography: document.getElementById('biography').value
+    };
+
+    fetch('http://localhost:3000/artists', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(artist)
+    })
+    .then(response => response.json())
+    .then(() => {
+        fetchArtists();  // Refresh the artists list
+        document.getElementById('createArtistForm').reset();  // Reset the form
+    });
+});
+
+// Delete artist
+function deleteArtist(artistId) {
+    fetch(`http://localhost:3000/artists/${artistId}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(() => fetchArtists());  // Refresh the artists list
+}
+
+// Fetch artists when the page loads
+document.addEventListener('DOMContentLoaded', fetchArtists);
+</script>
+
+</body>
+</html>
