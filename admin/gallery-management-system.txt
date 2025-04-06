@@ -1,0 +1,62 @@
+inventory-management-system
+ 
+	admin-management-system/
+	├── backend/                   			# Backend API (PHP files)
+	│   ├── api/                   			# API endpoints for CRUD operations
+	│   │   ├── artists.php        			# Endpoint for handling customer-related requests
+	│   │   ├── artworks.php   				# Endpoint for handling orders-related requests
+	│   │   ├── sales.php       			# Endpoint for handling items-related requests	
+	│   │   ├── buyers.php      			# Endpoint for handling purchases-related requests
+	│   │   ├── exhibitions.php         	# Endpoint for handling suppliers-related requests
+	│   │   ├── exibition-artworks.php  	# Endpoint for handling vendors-related requests
+	│   │   ├── visitors.php     			# Endpoint for handling products-related requests
+	│   │   ├── users.php               	# Endpoint for handling user-related requests
+		|   |
+	│   │   ├── dbconnect.php           	# Database connection
+	│   │   └── ...                     	# Other API files for various operations
+	│   ├── config/                     	# Configuration files (e.g., database connection settings)
+	│   │   └── config.php              	# Configuration file (e.g., database settings)
+	│   └── .htaccess                   	# If you're using Apache server (optional)
+	├── frontend/                       	# Frontend (HTML, JavaScript, CSS files)
+	│   ├── dashboard.html              	# Main HTML file with form and table
+	│   ├── css/                        	# CSS styles
+	│   │   └── style.css               	# Styles for the frontend
+	│   ├── js/                         	# JavaScript files
+	│   │   ├── script.js               	# Main JavaScript file for handling API requests (AJAX)
+	│   │   ├── login.js               		# Helper functions (optional)
+	│   │   └── ajax-requests.js        	# Separate file for AJAX requests (optional)
+	├── assets/                        		# Public assets (images, fonts, etc.)
+	│   └── logo.png                    	# Example logo
+	├── .gitignore                      	# Git ignore file (optional)
+	└── README.md                       	# Project readme (optional)
+
+	galleries-management-system/
+	├── backend/                   			# Backend API (PHP files)
+	│   ├── api/                   			# API endpoints for CRUD operations
+	│   │   ├── artists.php        	    	# Endpoint for handling artists-related requests
+	│   │   ├── artworks.php   				# Endpoint for handling artworks-related requests
+	│   │   ├── sales.php       			# Endpoint for handling sales-related requests	
+	│   │   ├── buyers.php      			# Endpoint for handling buyers-related requests
+	│   │   ├── exhibition.php          	# Endpoint for handling exhibitions-related requests
+	│   │   ├── exhibition-artworks.php     # Endpoint for handling exhibition-artworks-related requests
+	│   │   ├── visitors.php     			# Endpoint for handling visitors-related requests
+	│   │   ├── users.php               	# Endpoint for handling user-related requests
+		|   |
+	│   │   ├── dbconnect.php           	# Database connection
+	│   │   └── ...                     	# Other API files for various operations
+	│   ├── config/                     	# Configuration files (e.g., database connection settings)
+	│   │   └── config.php              	# Configuration file (e.g., database settings)
+	│   └── .htaccess                   	# If you're using Apache server (optional)
+	├── frontend/                       	# Frontend (HTML, JavaScript, CSS files)
+	│   ├── dashboard.html              	# Main HTML file with form and table
+	│   ├── css/                       		# CSS styles
+	│   │   └── style.css               	# Styles for the frontend
+	│   ├── js/                         	# JavaScript files
+	│   │   ├── script.js               	# Main JavaScript file for handling API requests (AJAX)
+	│   │   ├── login.js               		# Helper functions (optional)
+	│   │   └── ajax-requests.js        	# Separate file for AJAX requests (optional)
+	├── assets/                         	# Public assets (images, fonts, etc.)
+	│   └── logo.png                    	# Example logo
+	├── .gitignore                      	# Git ignore file (optional)
+	└── README.md                       	# Project readme (optional)
+	
