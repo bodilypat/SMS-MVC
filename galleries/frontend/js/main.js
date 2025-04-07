@@ -864,3 +864,177 @@ function addNewSale() {
 
 // Initial load: Fetch all sales when the page is loaded
 document.addEventListener('DOMContentLoaded', fetchSales);
+
+// Base URL of the API (replace with your actual API endpoint)
+const apiUrl = 'http://localhost/galleries/backend/api/customers.php';
+
+// Function to fetch all customer records (READ operation)
+function fetchCustomers() {
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Fetched customers:', data);
+            displayCustomers(data); // Function to display data on the webpage
+        })
+        .catch(error => {
+            console.error('Error fetching customers:', error);
+            alert('Failed to fetch customer data.');
+        });
+}
+
+// Function to create a new customer record (CREATE operation)
+function createCustomer(name, email, phone, feedback) {
+    const requestData = {
+        name: name,
+        email: email,
+        phone: phone,
+        feedback: feedback
+    };
+
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Customer created:', data);
+        fetchCustomers(); // Refresh the customer list
+    })
+    .catch(error => {
+        console.error('Error creating customer:', error);
+        alert('Failed to create customer.');
+    });
+}
+
+// Function to update an existing customer record (UPDATE operation)
+function updateCustomer(id, name, email, phone, feedback) {
+    const requestData = {
+        name: name,
+        email: email,
+        phone: phone,
+        feedback: feedback
+    };
+
+    fetch(`${apiUrl}?id=${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Customer updated:', data);
+        fetchCustomers(); // Refresh the customer list
+    })
+    .catch(error => {
+        console.error('Error updating customer:', error);
+        alert('Failed to update customer.');
+    });
+}
+
+// Function to delete a customer record (DELETE operation)
+function deleteCustomer(id) {
+    fetch(`${apiUrl}?id=${id}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Customer deleted:', data);
+        fetchCustomers(); // Refresh the customer list
+    })
+    .catch(error => {
+        console.error('Error deleting customer:', error);
+        alert('Failed to delete customer.');
+    });
+}
+
+// Function to display customer data in a table on the webpage
+function displayCustomers(customers) {
+    const tableBody = document.getElementById('customersTableBody');
+    tableBody.innerHTML = ''; // Clear existing table rows
+
+    customers.forEach(customer => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${customer.id}</td>
+            <td>${customer.name}</td>
+            <td>${customer.email}</td>
+            <td>${customer.phone}</td>
+            <td>${customer.feedback || 'N/A'}</td>
+            <td>
+                <button onclick="editCustomer(${customer.id})">Edit</button>
+                <button onclick="deleteCustomer(${customer.id})">Delete</button>
+            </td>
+        `;
+        tableBody.appendChild(tr);
+    });
+}
+
+// Function to handle editing a customer record
+function editCustomer(id) {
+    // Fetch the current data for the customer
+    fetch(`${apiUrl}?id=${id}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                const customer = data[0];
+                const name = prompt('Enter new name:', customer.name);
+                const email = prompt('Enter new email:', customer.email);
+                const phone = prompt('Enter new phone:', customer.phone);
+                const feedback = prompt('Enter new feedback:', customer.feedback);
+
+                if (name && email && phone) {
+                    updateCustomer(id, name, email, phone, feedback);
+                } else {
+                    alert('Name, email, and phone are required.');
+                }
+            } else {
+                alert('Customer not found.');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching customer data:', error);
+            alert('Failed to fetch customer data.');
+        });
+}
+
+// Function to handle adding a new customer record
+function addNewCustomer() {
+    const name = prompt('Enter name:');
+    const email = prompt('Enter email:');
+    const phone = prompt('Enter phone:');
+    const feedback = prompt('Enter feedback (optional):');
+
+    if (name && email && phone) {
+        createCustomer(name, email, phone, feedback);
+    } else {
+        alert('Name, email, and phone are required.');
+    }
+}
+
+// Initialize the customer list when the page loads
+document.addEventListener('DOMContentLoaded', fetchCustomers);
