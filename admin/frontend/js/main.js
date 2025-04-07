@@ -864,3 +864,370 @@ function addNewSale() {
 
 // Initial load: Fetch all sales when the page is loaded
 document.addEventListener('DOMContentLoaded', fetchSales);
+
+// Base URL of the API (replace with your actual API endpoint)
+const apiUrl = 'http://localhost/galleries/backend/api/customers.php';
+
+// Function to fetch all customer records (READ operation)
+function fetchCustomers() {
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Fetched customers:', data);
+            displayCustomers(data); // Function to display data on the webpage
+        })
+        .catch(error => {
+            console.error('Error fetching customers:', error);
+            alert('Failed to fetch customer data.');
+        });
+}
+
+// Function to create a new customer record (CREATE operation)
+function createCustomer(name, email, phone, feedback) {
+    const requestData = {
+        name: name,
+        email: email,
+        phone: phone,
+        feedback: feedback
+    };
+
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Customer created:', data);
+        fetchCustomers(); // Refresh the customer list
+    })
+    .catch(error => {
+        console.error('Error creating customer:', error);
+        alert('Failed to create customer.');
+    });
+}
+
+// Function to update an existing customer record (UPDATE operation)
+function updateCustomer(id, name, email, phone, feedback) {
+    const requestData = {
+        name: name,
+        email: email,
+        phone: phone,
+        feedback: feedback
+    };
+
+    fetch(`${apiUrl}?id=${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Customer updated:', data);
+        fetchCustomers(); // Refresh the customer list
+    })
+    .catch(error => {
+        console.error('Error updating customer:', error);
+        alert('Failed to update customer.');
+    });
+}
+
+// Function to delete a customer record (DELETE operation)
+function deleteCustomer(id) {
+    fetch(`${apiUrl}?id=${id}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Customer deleted:', data);
+        fetchCustomers(); // Refresh the customer list
+    })
+    .catch(error => {
+        console.error('Error deleting customer:', error);
+        alert('Failed to delete customer.');
+    });
+}
+
+// Function to display customer data in a table on the webpage
+function displayCustomers(customers) {
+    const tableBody = document.getElementById('customersTableBody');
+    tableBody.innerHTML = ''; // Clear existing table rows
+
+    customers.forEach(customer => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${customer.id}</td>
+            <td>${customer.name}</td>
+            <td>${customer.email}</td>
+            <td>${customer.phone}</td>
+            <td>${customer.feedback || 'N/A'}</td>
+            <td>
+                <button onclick="editCustomer(${customer.id})">Edit</button>
+                <button onclick="deleteCustomer(${customer.id})">Delete</button>
+            </td>
+        `;
+        tableBody.appendChild(tr);
+    });
+}
+
+// Function to handle editing a customer record
+function editCustomer(id) {
+    // Fetch the current data for the customer
+    fetch(`${apiUrl}?id=${id}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                const customer = data[0];
+                const name = prompt('Enter new name:', customer.name);
+                const email = prompt('Enter new email:', customer.email);
+                const phone = prompt('Enter new phone:', customer.phone);
+                const feedback = prompt('Enter new feedback:', customer.feedback);
+
+                if (name && email && phone) {
+                    updateCustomer(id, name, email, phone, feedback);
+                } else {
+                    alert('Name, email, and phone are required.');
+                }
+            } else {
+                alert('Customer not found.');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching customer data:', error);
+            alert('Failed to fetch customer data.');
+        });
+}
+
+// Function to handle adding a new customer record
+function addNewCustomer() {
+    const name = prompt('Enter name:');
+    const email = prompt('Enter email:');
+    const phone = prompt('Enter phone:');
+    const feedback = prompt('Enter feedback (optional):');
+
+    if (name && email && phone) {
+        createCustomer(name, email, phone, feedback);
+    } else {
+        alert('Name, email, and phone are required.');
+    }
+}
+
+// Initialize the customer list when the page loads
+document.addEventListener('DOMContentLoaded', fetchCustomers);
+// Base URL of the API (replace with your actual API endpoint)
+const apiUrl = 'http://localhost/galleries/backend/api/inventory.php';
+
+// Function to fetch all inventory items (READ operation)
+function fetchInventory() {
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Fetched inventory:', data);
+            displayInventory(data); // Function to display data on the webpage
+        })
+        .catch(error => {
+            console.error('Error fetching inventory:', error);
+            alert('Failed to fetch inventory data.');
+        });
+}
+
+// Function to create a new product (CREATE operation)
+function createProduct(sku, productName, description, category, quantity, price, supplierId, reorderLevel) {
+    const requestData = {
+        sku: sku,
+        product_name: productName,
+        description: description,
+        category: category,
+        quantity: quantity,
+        price: price,
+        supplier_id: supplierId,
+        reorder_level: reorderLevel
+    };
+
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Product created:', data);
+        fetchInventory(); // Refresh the inventory list
+    })
+    .catch(error => {
+        console.error('Error creating product:', error);
+        alert('Failed to create product.');
+    });
+}
+
+// Function to update an existing product (UPDATE operation)
+function updateProduct(productId, sku, productName, description, category, quantity, price, supplierId, reorderLevel) {
+    const requestData = {
+        product_id: productId,
+        sku: sku,
+        product_name: productName,
+        description: description,
+        category: category,
+        quantity: quantity,
+        price: price,
+        supplier_id: supplierId,
+        reorder_level: reorderLevel
+    };
+
+    fetch(`${apiUrl}?id=${productId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Product updated:', data);
+        fetchInventory(); // Refresh the inventory list
+    })
+    .catch(error => {
+        console.error('Error updating product:', error);
+        alert('Failed to update product.');
+    });
+}
+
+// Function to delete a product (DELETE operation)
+function deleteProduct(productId) {
+    fetch(`${apiUrl}?id=${productId}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Product deleted:', data);
+        fetchInventory(); // Refresh the inventory list
+    })
+    .catch(error => {
+        console.error('Error deleting product:', error);
+        alert('Failed to delete product.');
+    });
+}
+
+// Function to display inventory data in a table on the webpage
+function displayInventory(inventory) {
+    const tableBody = document.getElementById('inventoryTableBody');
+    tableBody.innerHTML = ''; // Clear existing table rows
+
+    inventory.forEach(product => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${product.product_id}</td>
+            <td>${product.sku}</td>
+            <td>${product.product_name}</td>
+            <td>${product.description || 'N/A'}</td>
+            <td>${product.category || 'N/A'}</td>
+            <td>${product.quantity}</td>
+            <td>${product.price}</td>
+            <td>${product.reorder_level}</td>
+            <td>
+                <button onclick="editProduct(${product.product_id})">Edit</button>
+                <button onclick="deleteProduct(${product.product_id})">Delete</button>
+            </td>
+        `;
+        tableBody.appendChild(tr);
+    });
+}
+
+// Function to handle editing a product record
+function editProduct(productId) {
+    // Fetch the current data for the product
+    fetch(`${apiUrl}?id=${productId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                const product = data[0];
+                const sku = prompt('Enter new SKU:', product.sku);
+                const productName = prompt('Enter new product name:', product.product_name);
+                const description = prompt('Enter new description:', product.description);
+                const category = prompt('Enter new category:', product.category);
+                const quantity = prompt('Enter new quantity:', product.quantity);
+                const price = prompt('Enter new price:', product.price);
+                const supplierId = prompt('Enter new supplier ID:', product.supplier_id);
+                const reorderLevel = prompt('Enter new reorder level:', product.reorder_level);
+
+                if (sku && productName && price && quantity) {
+                    updateProduct(productId, sku, productName, description, category, quantity, price, supplierId, reorderLevel);
+                } else {
+                    alert('SKU, product name, price, and quantity are required.');
+                }
+            } else {
+                alert('Product not found.');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching product data:', error);
+            alert('Failed to fetch product data.');
+        });
+}
+
+// Function to handle adding a new product record
+function addNewProduct() {
+    const sku = prompt('Enter SKU:');
+    const productName = prompt('Enter product name:');
+    const description = prompt('Enter description (optional):');
+    const category = prompt('Enter category (optional):');
+    const quantity = prompt('Enter quantity:');
+    const price = prompt('Enter price:');
+    const supplierId = prompt('Enter supplier ID (optional):');
+    const reorderLevel = prompt('Enter reorder level (optional, default 10):') || 10;
+
+    if (sku && productName && quantity && price) {
+        createProduct(sku, productName, description, category, quantity, price, supplierId, reorderLevel);
+    } else {
+        alert('SKU, product name, quantity, and price are required.');
+    }
+}
+
+// Initialize the inventory list when the page loads
+document.addEventListener('DOMContentLoaded', fetch
