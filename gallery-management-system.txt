@@ -1,4 +1,4 @@
-inventory-management-system
+gallery-management-system
  
 	admin-management-system/
 	├── backend/                   			# Backend API (PHP files)
