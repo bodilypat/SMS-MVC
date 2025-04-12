@@ -10,12 +10,12 @@ CREATE TABLE users(
 CREATE TABLE artists(
     artist_id INT AUTO_INCREMENT PRIMARY KEY,
     frist_name VARCHAR(100) NOT NULL,
-	last_name VARCHAR(100) NOT NULL,
-	birth_data DATE,
-	death_date DATE,
+    last_name VARCHAR(100) NOT NULL,
+    birth_data DATE,
+    death_date DATE,
     biography TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	INDEX idx_name (first_name, last_name),
+    INDEX idx_name (first_name, last_name),
 );
 
 CREATE TABLE artworks(
