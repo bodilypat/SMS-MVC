@@ -29,7 +29,6 @@ CREATE TABLE artworks(
     FOREIGN KEY(artist_id) REFERENCES artists(id);
 );
 
-backend API ( PHP files) API endpoints for CRUD operation with the code : 
 CREATE TABLE exhibitions(
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
@@ -42,8 +41,6 @@ CREATE TABLE exhibitions(
 	INDEX idx_artist_id (artist_id)
 );
 
-backend API ( PHP files) API endpoints for CRUD operation with the code : 
-create main JavaScript file for handing API requests (AJAX)  from the code : 
 CREATE TABLE artwork_exhibition(
     exhibition_id INT,
     artwork_id INT,
@@ -53,9 +50,6 @@ CREATE TABLE artwork_exhibition(
     FOREIGN KEY (artwork_id) REFERENCES artworks(artwork_id)
 );
 
-create main JavaScript file for handing API requests (AJAX)  from the code : 
-
-backend API ( PHP files) API endpoints for CRUD operation with the code : 
 CREATE TABLE sales(
     id INT AUTO_INCREMENT PRIMARY KEY,
     artwork_id INT,
