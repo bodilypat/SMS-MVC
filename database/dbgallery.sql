@@ -92,4 +92,16 @@ CREATE TABLE inventory (
 	update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRRENT_TIMESTAMP,  
 	FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id)
 );
+CREATE TABLE visitors (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	email VARCHAR(150),
+	phone VARCHAR(20),
+	visit_date DATATIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	exhibition_id INT NOT NULL,
+	notes TEXT,
+	CONSTRAINT fk_exhibition
+	FOREIGN KEY (exhibition_id)
+	REFERENCES exhibitions(id)
+	ON DELETE CASCADE
+);
 
