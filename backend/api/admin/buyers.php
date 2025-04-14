@@ -142,16 +142,3 @@
 		}
 	}
 ?>
-
-				
-											
-											
-			$stmt = $db_handle->prepare("DELETE FROM buyers WHERE id = ?");
-			$stmt->execute([$_GET['id']]);
-			echo json_encode(['message' => 'buyer deleted successfully']);
-			break;
-		default:
-			http_response_code(405);
-			echo json_encode(['error' => 'Method Not Allowed']);
-	}
-	
