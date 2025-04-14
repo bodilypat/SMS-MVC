@@ -103,13 +103,12 @@
 		}
 		
 		try {
-				$stmt = $db_handle->prepare(" UPDATE buyers SET
-													name = :name,
-													email = :email,
-													phone = :phone,
-													feedback = :feedback
-											  WHERE id = :id
-											 ");
+				$stmt = $db_handle->prepare(" UPDATE buyers SET  name = :name,
+										 email = :email,
+										 phone = :phone,
+										 feedback = :feedback
+							      WHERE id = :id
+							");
 				$stmt->bindParam(':name', $data['name']);
 				$stmt->bindParam(':email', $data['email']);
 				$stmt->bindParam(':phone', $data['phone']);
