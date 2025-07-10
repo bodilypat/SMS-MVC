@@ -29,3 +29,5 @@
 			return $this->hasMany(CampaignLog::class);
 		}
 	}
+	
+			
