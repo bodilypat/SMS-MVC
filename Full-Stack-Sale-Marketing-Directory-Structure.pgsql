@@ -31,11 +31,26 @@ Full-Stack-Sale-Marketing-Directory-Structure/ (with Laravel)
 │
 ├── database/
 │   ├── factories/
+│   │   ├── LeadFactory.php
+│   │   ├── CustomerFactory.php
+│   │   ├── DealFactory.php
+│   │   ├── CampaignFactory.php
+│   │   ├── CampaignLogFactory.php
+│   │   └── UserFactory.php
 │   ├── migrations/
 │   │   ├── create_leads_table.php
 │   │   ├── create_customers_table.php
-│   │   └── ...  
+│   │   ├── create_deals_table.php
+│   │   ├── create_campaigns_table.php
+│   │   ├── create_campaign_logs_table.php
+│   │   └── create_users_table.php 
 │   └── seeders/
+│		├── LeadSeeder.php
+│		├── CustomerSeeder.php
+│		├── DealSeeder.php
+│		├── CampaignSeeder.php
+│		├── CampainLogSeeder.php
+│		└── DatabaseSeeder.php                              # Master seeder that calls them all
 │
 ├── routes/
 │   ├── web.php
