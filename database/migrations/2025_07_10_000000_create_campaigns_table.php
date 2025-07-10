@@ -14,6 +14,7 @@
 				$table->timestamp('scheduled_at')->nullable();
 				$table->boolean('is_active')->default(true);
 			
+				/* RELATIONSHIP */
 				$table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
 				
 				$table->timestamp();
