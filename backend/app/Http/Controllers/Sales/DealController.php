@@ -40,3 +40,5 @@
 			return response()->json(['message' => 'Deal deleted']);
 		}
 	}
+	
+	
