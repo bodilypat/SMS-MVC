@@ -7,6 +7,7 @@ Full-Stack-Sale-Marketing-Directory-Structure/ (with Laravel)
 │   │   ├── Http/
 │   │   │   ├── Controllers/                       
 │   │   │   │   ├── Auth/
+│   │   │   │	│   └── AuthController.php
 │   │   │   │   ├── CRM/
 │   │   │   │   │   ├── LeadController.php
 │   │   │   │	│   └── CustomerController.php
@@ -17,6 +18,8 @@ Full-Stack-Sale-Marketing-Directory-Structure/ (with Laravel)
 │   │   │   │       ├── CampaignController.php
 │   │   │   │	    └── EmailController.php
 │   │   │   └── Middleware/
+│   │   │       ├── Authenticate.php  
+│   │   │       └── RoleMiddleware.php 
 │   │   │
 │   ├── models/                          
 │   │   ├── Lead.php
