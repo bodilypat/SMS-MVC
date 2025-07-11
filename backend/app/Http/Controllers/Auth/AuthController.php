@@ -69,3 +69,10 @@
 				'message' => 'Logged out successfully',
 			]);
 		}
+	
+		/* Get the authenticated user. */
+		public function me(Request $request)
+		{
+			return response()->json($request->user());
+		}
+	}
