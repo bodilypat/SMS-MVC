@@ -21,15 +21,15 @@ Full-Stack-Sale-Marketing-Directory-Structure/ (with Laravel)
 │   │   │       ├── Authenticate.php  
 │   │   │       └── RoleMiddleware.php 
 │   │   │
-│   ├── models/                          
-│   │   ├── Lead.php
-│   │   ├── Customer.php
-│   │   ├── Deal.php
-│   │   ├── Quotation.php
-│   │   └── Campaign.php
-│   ├── services/                          
-│   │   ├── CompaignService.php
-│   │   └── LeadService.php                  
+│   │   ├── models/                          
+│   │   │   ├── Lead.php
+│   │   │   ├── Customer.php
+│   │   │   ├── Deal.php
+│   │   │   ├── Quotation.php
+│   │   │   └── Campaign.php
+│   │   ├── services/                          
+│   │   │    ├── CompaignService.php
+│   │   │    └── LeadService.php                  
 │   └── providers/
 │
 ├── database/
