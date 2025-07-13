@@ -1,7 +1,5 @@
 <?php
-	
-	/* Backend/database/migration/create_users_table.php */
-	
+
 	use Illuminate\Database\Migrations\Migration;
 	use Illuminate\Database\Schema\Blueprint;
 	use Illuminate\Support\Facades\Schema;
@@ -20,13 +18,20 @@
 				/* CUSTOM FIELD FOR USER TYPE */
 				$table->enum('role', ['admin','sales','marketing'])->default('sales');
 				
+				/* Optional Profile Info */
+				$table->string('phone')->nullable();
+				$table->string('job_title')->nullable();
+				$table->string('avator')->nullable();
+				
+				/* Token & Timestamps */
+				$table->rememberToken();
 				$table->timestamps();
 			});
 		}
 		
 		public function down(): void 
 		{
-				Schema::dropIfExist('users');
+				schema::dropIfExist('users');
 		}
 	};
 	
